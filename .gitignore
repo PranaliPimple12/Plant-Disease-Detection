@@ -1,0 +1,14 @@
+# Virtual environment
+venv/
+
+# Heavy ML model
+plant_disease_model_1_latest.pt
+
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pt
+plant_disease_model_1_latest.pt

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block pagetitle %}
+Plant Disease Detection
+{% endblock pagetitle %}
+
+{% block body %}
+<style>
+  body {
+    overflow-x: hidden;
+    background-color: white;
+  }
+
+  @media only screen and (max-width: 830px) {
+    .laptop {
+      display: none;
+    }
+  }
+
+  @media (min-width:830px) and (max-width: 1536px) {
+    .mobile {
+      display: none;
+    }
+  }
+
+  .right-img {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .feature-card {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .feature-icon {
+    font-size: 50px;
+    color: rgb(4, 54, 4);
+    margin-bottom: 15px;
+  }
+</style>
+
+<div class='mobile p-5'></div>
+
+<div class="container laptop" style="margin-top: 80px;">
+  <div class="row align-items-center">
+
+    <div class="col-lg-6" style="padding-left: 40px;">
+      <h1 class="display-5" style="font-weight: 600; color: rgb(4, 54, 4);">
+        Welcome to
+      </h1>
+      <h1 class="display-4" style="font-weight: 700; color: rgb(4, 54, 4);">
+        Plant Disease Detection System system
+      </h1>
+
+      <p class="lead" style="font-weight: 400; color: black; margin-top: 20px; text-align: justify;">
+        This website is designed to help farmers and users identify diseases in plant leaves using Artificial Intelligence.  
+        By simply uploading an image of a plant leaf, the system analyzes it using a trained deep learning model and provides the disease name along with useful suggestions.
+      </p>
+
+      <p class="lead" style="font-weight: 400; color: black; margin-top: 0px; text-align: justify;">
+        This helps in early detection, better crop management, and improved agricultural productivity.
+      </p>
+
+      <a href="/index">
+        <button class="btn btn-success btn-lg mt-3 mb-5" style="background-color: rgb(4, 54, 4); font-weight: 600;">
+          <b>Detect Plant</b>
+        </button>
+      </a>
+
+    </div>
+
+    <div class="col-lg-6 text-center">
+      <img src="{{ url_for('static', filename='images/Home.png') }}" 
+           alt="Plant Detection" 
+           class="right-img">
+    </div>
+  </div>
+</div>
+
+<div class="container text-center laptop" style="margin-top: 60px; margin-bottom: 60px;">
+
+  <h2 style="color: rgb(4,54,4); font-weight: 600; margin-bottom: 40px;">
+    How This System Helps You
+  </h2>
+
+  <div class="row">
+
+    <div class="col-lg-4 feature-card">
+      <i class="fas fa-camera feature-icon"></i>
+      <h5><b>Upload / Click Leaf Image</b></h5>
+      <p>
+        Users can upload or click a photo of the affected plant leaf directly on the website for analysis.
+      </p>
+    </div>
+
+    <div class="col-lg-4 feature-card">
+      <i class="fas fa-envelope feature-icon"></i>
+      <h5><b>Symptoms & Steps via Email</b></h5>
+      <p>
+        After detection, symptoms of the disease and preventive steps are sent directly to the user’s email.
+      </p>
+    </div>
+
+    <div class="col-lg-4 feature-card">
+      <i class="fas fa-leaf feature-icon"></i>
+      <h5><b>Product Solution</b></h5>
+      <p>
+        The system also suggests appropriate fertilizer or pesticide solutions for the identified disease.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+{% endblock body %}

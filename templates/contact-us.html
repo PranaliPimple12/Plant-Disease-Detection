@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block pagetitle %}
+Contact Us
+{% endblock pagetitle %}
+
+{% block body %}
+
+<style>
+    body{
+        background-color: #f3fff5;
+    }
+
+    .contact-card{
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+        border-top: 5px solid rgb(4, 54, 4);
+    }
+
+    .title-green{
+        color: rgb(4, 54, 4);
+        font-weight: 600;
+    }
+
+    .icon{
+        height: 30px;
+        width: 30px;
+        margin-right: 8px;
+    }
+
+</style>
+
+<div class="container mt-4">
+
+    <!-- HEADING -->
+    <div class="row mb-5 text-center">
+        <div class="col-lg-10 mx-auto">
+            <h1 class="display-4 title-green"><b>Contact Us</b></h1>
+            <p class="lead" style="color:black;">
+                For any queries, suggestions or support, feel free to connect with us.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <!-- LEFT SIDE - WEBSITE INFO -->
+        <div class="col-md-6 mb-4">
+            <div class="contact-card">
+
+                <h4 class="title-green mb-3">🌱 About Plant Disease Detection System</h4>
+
+                <p style="text-align: justify;">
+                    PlantLens is an AI-powered platform that helps farmers and users identify plant diseases by 
+                    analyzing leaf images. The system uses deep learning and image processing to provide fast, 
+                    reliable and accurate results. This helps in early detection of diseases, saving crops and 
+                    increasing agricultural productivity.
+                </p>
+
+                <h5 class="title-green mt-4">Website Features :</h5>
+                <ul>
+                    <li>Upload plant leaf image</li>
+                    <li>AI-based disease prediction</li>
+                    <li>Disease symptoms & solution suggestion</li>
+                    <li>Simple and user-friendly interface</li>
+                </ul>
+
+            </div>
+        </div>
+
+
+
+        <!-- RIGHT SIDE - CONTACT INFO -->
+        <div class="col-md-6 mb-4">
+            <div class="contact-card">
+
+                <h4 class="title-green mb-3">📞 Contact Information</h4>
+
+                <p><b>Email:</b> plantlens@gmail.com</p>
+                <p><b>Phone:</b> +91 1256749832</p>
+
+                <hr>
+
+                <h5 class="title-green mb-3">🌐 Social Media Handles</h5>
+
+                <a target="_blank" href="mailto:plantlens@gmail.com">
+                    <img class="icon" 
+                    src="https://cdn-icons-png.flaticon.com/512/281/281769.png">
+                </a>
+                plantlens@gmail.com
+                <br><br>
+
+                <a target="_blank" href="https://github.com/">
+                    <img class="icon"
+                    src="https://cdn-icons-png.flaticon.com/512/25/25231.png">
+                </a>
+                GitHub
+                <br><br>
+
+                <a target="_blank" href="https://www.linkedin.com/">
+                    <img class="icon"
+                    src="https://cdn-icons-png.flaticon.com/512/174/174857.png">
+                </a>
+                LinkedIn
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock body %}

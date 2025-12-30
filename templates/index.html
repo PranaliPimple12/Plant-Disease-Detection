@@ -1,0 +1,162 @@
+<html>
+{% extends 'base.html' %}
+{% block pagetitle %}
+AI Engine
+{% endblock pagetitle %}
+
+{% block body %}
+
+<div style="background-color:#ffffff; min-height:100vh; padding:30px 0;">
+    <div class="container">
+
+        <div class="row mb-5 text-center">
+            <div class="col-lg-10 mx-auto">
+                <h1 class="display-4" style="padding-top:2%; font-weight:400; color: rgb(4, 54, 4);">
+                    <b>Detect Plant plant</b>
+                </h1>
+                <p class="lead" style="font-weight:500; color:black;">
+                    Let Help You To Detect Disease
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col mx-auto">
+                <div class="p-5 bg-white shadow rounded-lg" style="height: 95%;">
+
+                    <h5 style="color: rgb(4, 54, 4);"><b>Why is it necessary to detect disease in plant?</b></h5>
+                    <p style="text-align:justify;">
+                        Plant diseases affect the growth of their respective species. 
+                        In addition, some research gaps are identified from which to obtain greater transparency for detecting diseases in plants, 
+                        even before their symptoms appear clearly.
+                    </p>
+                    <p>
+                        diagnosis is one of the most important aspects of a plant pathologist's training. 
+                        Without proper identification of the disease and the disease-causing agent, disease control measures can be a waste of time and money and can lead to further plant losses. 
+                        Proper disease diagnosis is necessary.
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="col mx-auto">
+                <div class="p-5 bg-white shadow rounded-lg text-center" style="height:95%;">
+
+                    <img src="{{ url_for('static', filename='images/Engine.png') }}"
+                         height="250" class="d-block mx-auto mb-4">
+
+                    <form action="/submit" method="POST" enctype="multipart/form-data">
+
+                        <div class="custom-file overflow-hidden mb-4">
+                            <input type="file" id="actual-btn" hidden name="image" />
+                            <label for="actual-btn" class="btn btn-outline-success">Choose File</label>
+                            <label id="camera-btn" class="btn btn-outline-primary ms-2">Open Camera</label>
+                            <br>
+                            <span id="file-chosen">No file chosen</span>
+                        </div>
+
+                        <div id="camera-container" style="display:none;">
+                            <video id="camera-feed" width="320" height="240" autoplay></video><br>
+                            <button type="button" id="capture-btn" class="btn btn-secondary mt-2">Capture Photo</button>
+                        </div>
+
+                        <img id="preview" src="#" style="display:none; max-width:100%;" />
+
+                        <h6 class="text-center mb-4 text-muted">
+                            Upload a plant leaf image and see the AI prediction.
+                        </h6>
+
+                        <button type="button" id="submit-btn"
+                            class="btn btn-success px-4"
+                            style="background-color: rgb(4, 54, 4);">
+                            Submit
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="col mx-auto">
+                <div class="p-5 bg-white shadow rounded-lg" style="height: 95%;">
+                    <h5 style="color: rgb(4, 54, 4);"><b>Prevent Plant Disease - Steps:</b></h5>
+
+                    <ol>
+                        <li>Follow good sanitation practices</li>
+                        <li>Use healthy and quality seeds</li>
+                        <li>Provide good air circulation</li>
+                        <li>Remove infected leaves regularly.</li>
+                        <li>Avoid over-watering.</li>
+                        <li>Apply natural pesticides if required.</li>
+                    </ol>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+let capturedBlob = null;
+
+const actualBtn = document.getElementById('actual-btn');
+const fileChosen = document.getElementById('file-chosen');
+const preview = document.getElementById('preview');
+
+actualBtn.addEventListener('change', () => {
+    capturedBlob = null;
+    fileChosen.innerText = actualBtn.files[0].name;
+});
+
+document.getElementById('camera-btn').addEventListener('click', () => {
+    document.getElementById('camera-container').style.display = 'block';
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            document.getElementById('camera-feed').srcObject = stream;
+        });
+});
+
+document.getElementById('capture-btn').addEventListener('click', () => {
+    const video = document.getElementById('camera-feed');
+    const canvas = document.createElement('canvas');
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+
+    canvas.toBlob(blob => {
+        capturedBlob = blob;
+        preview.src = URL.createObjectURL(blob);
+        preview.style.display = "block";
+        fileChosen.innerText = "Camera image captured";
+    }, "image/jpeg");
+});
+
+document.getElementById('submit-btn').addEventListener('click', () => {
+    const formData = new FormData();
+
+    if (capturedBlob) {
+        formData.append("image", capturedBlob, "camera_image.jpg");
+    } else if (actualBtn.files.length > 0) {
+        formData.append("image", actualBtn.files[0]);
+    } else {
+        alert("Please choose or capture an image");
+        return;
+    }
+
+    fetch("/submit", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.text())
+    .then(html => {
+        document.open();
+        document.write(html);
+        document.close();
+    });
+});
+</script>
+
+{% endblock body %}

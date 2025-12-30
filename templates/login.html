@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCrNYYvwZpucInvs63I-HgcJFPIEOAVzAs",
+      authDomain: "plant-disease-detection-971a5.firebaseapp.com",
+      projectId: "plant-disease-detection-971a5",
+      storageBucket: "plant-disease-detection-971a5.appspot.com",
+      messagingSenderId: "1048215799798",
+      appId: "1:1048215799798:web:49f5cc66d5988a744ee9d7"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+
+<body class="min-h-screen bg-gray-100 flex justify-center items-center">
+
+  <div class="w-[80%] bg-white shadow-xl rounded-lg flex">
+
+    <div class="w-1/2 p-40">
+
+      <img src="{{ url_for('static', filename='images/Logo.png') }}" class="w-52 mx-auto">
+
+      <h2 class="text-2xl text-center font-bold mt-6">Sign in to your account</h2>
+
+      <button id="googleSign"
+        class="w-full mt-8 py-3 bg-green-100 hover:bg-green-200 font-semibold rounded-lg flex justify-center items-center">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-6 h-6 mr-2">
+        Sign In With Google
+      </button>
+
+    </div>
+
+    <div class="w-1/2 bg-green-100 flex justify-center items-center rounded-r-lg">
+      <img src="{{ url_for('static', filename='images/login.png') }}" class="w-[80%]">
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById("googleSign").addEventListener("click", () => {
+
+      const provider = new firebase.auth.GoogleAuthProvider();
+
+      firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+
+          fetch("/save_email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: result.user.email })
+          });
+
+          window.location.href = "/";
+        })
+        .catch((err) => {
+          alert("Login failed: " + err.message);
+        });
+    });
+
+    document.getElementById("emailLogin").addEventListener("click", () => {
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((result) => {
+
+          fetch("/save_email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: result.user.email })
+          });
+
+          window.location.href = "/";
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+    });
+  </script>
+
+</body>
+</html>

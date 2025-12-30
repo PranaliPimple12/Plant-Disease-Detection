@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block pagetitle %}
+Supplement Market
+{% endblock pagetitle %}
+
+{% block body %}
+
+<br>
+<div style="background-color:#e9f7ec; min-height:100vh; padding:30px 0;">
+
+  <div class="container text-center mb-5">
+      <h1 style="color:#0b4a16; font-weight:700;">Supplements</h1>
+      <p style="color:#074411; font-size:17px;">
+          Buy Supplements & Fertilizer at one place
+      </p>
+  </div>
+
+  <div class="container">
+      <div class="row p-2">
+    {% for index in range(0,supplement_name | length) %}
+    {% if index != 4 %}
+
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+        <div class="bg-white shadow rounded-lg p-4 text-center h-100"
+             style="border:2px solid #0b4a16; transition:0.3s;">
+
+            {% if index==3 or index==5 or index==7 or index==11 or index==15 or 
+                  index==18 or index==20 or index==23 or index==24 or index==25 or 
+                  index==28 or index==38 %}
+
+                <h5 style="color:#0b4a16;font-weight:600;">
+                    Fertilizer <span style="color:#2e7d32;">(Healthy)</span>
+                </h5>
+
+            {% else %}
+
+                <h5 style="color:#8b0000;font-weight:600;">
+                    Supplement <span style="color:#b71c1c;">(Diseased)</span>
+                </h5>
+
+            {% endif %}
+
+            <img src="{{ supplement_image[index] }}"
+                 style="width:100%; max-width:180px; height:220px; object-fit:contain; margin:15px 0;">
+
+            <h6 style="color:#0b4a16;"><b>For:</b> {{ disease[index] }}</h6>
+
+            <p style="font-size:14px; color:#444;">
+                {{ supplement_name[index] }}
+            </p>
+
+            <a target="_blank" href="{{ buy[index] }}">
+                <button type="button"
+                        class="btn mt-2"
+                        style="background:#0b4a16; color:white; padding:8px 20px; border-radius:25px;">
+                    Buy Product
+                </button>
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+    {% endfor %}
+
+</div>
+</div>
+</div>
+      </div>
+  </div>
+
+</div>
+
+{% endblock body %}
